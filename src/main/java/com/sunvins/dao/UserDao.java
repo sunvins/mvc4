@@ -1,7 +1,19 @@
 package com.sunvins.dao;
 
-import com.sunvins.model.User;
+import java.util.List;
+
+import com.sunvins.bean.SearchBean;
+import com.sunvins.model.UserVO;
 
 public interface UserDao {  
-    public User selectUserById(Integer userId);    
-}  
+	
+    public List<UserVO> getSearchList(SearchBean searchBean);
+    
+    public UserVO getByCid(int cid);
+    
+    public void insert(UserVO userVO);
+    
+    public void update(UserVO userVO);
+    
+    public void delete(int cid);
+} 
