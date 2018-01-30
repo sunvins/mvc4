@@ -11,7 +11,7 @@
 		<!-- spring版本号 -->
 		<spring.version>3.2.9.RELEASE</spring.version>
 		<!-- junit版本号 -->
-		<junit.version>4.10</junit.version>
+		<junit.version>4.11</junit.version>
 		<!-- mybatis版本号 -->
 		<mybatis.version>3.2.8</mybatis.version>
 	</properties>
@@ -117,6 +117,19 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>2.0.2-beta</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- 添加我的工具项目 -->
+		<dependency>
+			<groupId>com.sunvins</groupId>
+			<artifactId>sunvinsHelper</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>mvc4</finalName>

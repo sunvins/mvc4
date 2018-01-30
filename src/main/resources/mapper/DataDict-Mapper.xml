@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunvins.dao.DataDictDao">
+	<resultMap id="DataDict" type="com.sunvins.model.DataDictVO">
+		<result column="cid" property="cid" jdbcType="INTEGER" />
+		<result column="field_type" property="fieldType" jdbcType="VARCHAR" />
+		<result column="field_name" property="fieldName" jdbcType="VARCHAR" />
+		<result column="field_code" property="fieldCode" jdbcType="VARCHAR" />
+		<result column="field_value" property="fieldValue" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 查询单条记录 -->
+	<select id="getByCid" parameterType="int" resultMap="DataDict">
+		select * from s_data_dict where cid = #{cid}
+	</select>
+
+	<!-- 查询记录列表 -->
+	<select id="getSearchList" parameterType="com.sunvins.bean.SearchBean"  resultMap="DataDict">
+		select * from s_data_dict 
+		<where>
+			<if test="criteria1!=null">
+				and user_name=#{criteria1}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 新增记录 -->
+	<insert id="insert" parameterType="com.sunvins.model.DataDictVO">
+		<selectKey keyProperty="cid" resultType="int">  
+            select LAST_INSERT_ID()
+        </selectKey>
+		insert into s_data_dict (cid,field_type,field_name,field_code,field_value) 
+		values (
+		#{cid,jdbcType=INTEGER},
+		#{fieldType,jdbcType=VARCHAR},
+		#{fieldName,jdbcType=VARCHAR},
+		#{fieldCode,jdbcType=VARCHAR},
+		#{fieldValue,jdbcType=VARCHAR})
+	</insert>
+
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.sunvins.model.DataDictVO">
+		update s_data_dict set 
+		cid = #{cid},
+		field_type = #{fieldType},
+		field_name = #{fieldName},
+		field_code = #{fieldCode},
+		field_value = #{fieldValue}
+		where cid =#{cid}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="int">
+		delete from s_data_dict where cid = #{cid}
+	</delete>
+	
+</mapper>

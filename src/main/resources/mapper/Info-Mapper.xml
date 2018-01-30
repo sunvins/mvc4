@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunvins.dao.InfoDao">
+	<resultMap id="Info" type="com.sunvins.model.InfoVO">
+		<result column="cid" property="cid" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="create_dttm" property="createDttm" jdbcType="DATE" />
+		<result column="update_dttm" property="updateDttm" jdbcType="DATE" />
+	</resultMap>
+	
+	<!-- 查询单条记录 -->
+	<select id="getByCid" parameterType="int" resultMap="Info">
+		select * from s_info where cid = #{cid}
+	</select>
+
+	<!-- 查询记录列表 -->
+	<select id="getSearchList" parameterType="com.sunvins.bean.SearchBean"  resultMap="Info">
+		select * from s_info 
+		<where>
+			<if test="criteria1!=null">
+				and user_name=#{criteria1}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 新增记录 -->
+	<insert id="insert" parameterType="com.sunvins.model.InfoVO">
+		<selectKey keyProperty="cid" resultType="int">  
+            select LAST_INSERT_ID()
+        </selectKey>
+		insert into s_info (cid,title,content,create_dttm,update_dttm) 
+		values (
+		#{cid,jdbcType=INTEGER},
+		#{title,jdbcType=VARCHAR},
+		#{content,jdbcType=VARCHAR},
+		#{createDttm,jdbcType=DATE},
+		#{updateDttm,jdbcType=DATE})
+	</insert>
+
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.sunvins.model.InfoVO">
+		update s_info set 
+		cid = #{cid},
+		title = #{title},
+		content = #{content},
+		create_dttm = #{createDttm},
+		update_dttm = #{updateDttm}
+		where cid =#{cid}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="int">
+		delete from s_info where cid = #{cid}
+	</delete>
+	
+</mapper>

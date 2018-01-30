@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunvins.dao.CustomerDao">
+	<resultMap id="Customer" type="com.sunvins.model.CustomerVO">
+		<result column="cid" property="cid" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="pay" property="pay" jdbcType="DOUBLE" />
+		<result column="user_pass" property="userPass" jdbcType="VARCHAR" />
+		<result column="birth_day" property="birthDay" jdbcType="DATE" />
+	</resultMap>
+	
+	<!-- 查询单条记录 -->
+	<select id="getByCid" parameterType="int" resultMap="Customer">
+		select * from s_customer where cid = #{cid}
+	</select>
+
+	<!-- 查询记录列表 -->
+	<select id="getSearchList" parameterType="com.sunvins.bean.SearchBean"  resultMap="Customer">
+		select * from s_customer 
+		<where>
+			<if test="criteria1!=null">
+				and user_name=#{criteria1}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 新增记录 -->
+	<insert id="insert" parameterType="com.sunvins.model.CustomerVO">
+		<selectKey keyProperty="cid" resultType="int">  
+            select LAST_INSERT_ID()
+        </selectKey>
+		insert into s_customer (cid,user_id,user_name,pay,user_pass,birth_day) 
+		values (
+		#{cid,jdbcType=INTEGER},
+		#{userId,jdbcType=VARCHAR},
+		#{userName,jdbcType=VARCHAR},
+		#{pay,jdbcType=DOUBLE},
+		#{userPass,jdbcType=VARCHAR},
+		#{birthDay,jdbcType=DATE})
+	</insert>
+
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.sunvins.model.CustomerVO">
+		update s_customer set 
+		cid = #{cid},
+		user_id = #{userId},
+		user_name = #{userName},
+		pay = #{pay},
+		user_pass = #{userPass},
+		birth_day = #{birthDay}
+		where cid =#{cid}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="int">
+		delete from s_customer where cid = #{cid}
+	</delete>
+	
+</mapper>
