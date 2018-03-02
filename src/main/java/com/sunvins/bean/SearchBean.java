@@ -1,6 +1,7 @@
 package com.sunvins.bean;
 
 public class SearchBean {
+	//nice searchBean
 	private String criteria1;
 	private String criteria2;
 	private String criteria3;
