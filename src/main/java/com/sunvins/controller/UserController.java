@@ -1,11 +1,14 @@
 package com.sunvins.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -54,10 +57,10 @@ public class UserController {
 //        mav.addObject("user", user2); 
         CustomerVO customerVO=new CustomerVO();
         customerVO.setBirthDay(new Date());
-        customerVO.setCid(1);
-        customerVO.setUserId("旬子");
-        customerVO.setUserName("发情了");
-        customerVO.setUserPass("mm");
+//        customerVO.setCid(1);
+        customerVO.setUserId("天元");
+        customerVO.setUserName("青衣");
+        customerVO.setUserPass("mk");
         customerService.insert(customerVO);
         
         List<CustomerVO> custList=customerService.getSearchList(new SearchBean());
@@ -76,4 +79,107 @@ public class UserController {
         
         return mav;      
     } 
+    
+    @RequestMapping("/easy1")      
+    public ModelAndView showEasy(){
+    	List<CustomerVO> custList=customerService.getSearchList(new SearchBean());
+    	Map<String,Object> data = new HashMap<String,Object>(); 
+    	data.put("custList",custList); 
+        ModelAndView mav = new ModelAndView("easy/a3",data);
+        return mav;
+    }
+    
+    @RequestMapping("/saveIt")      
+    public ModelAndView saveIt(CustomerVO customer){
+    	System.out.println("----------------saveIt");
+    	customer.setBirthDay(new Date());
+    	customerService.insert(customer);
+        return showEasy();
+    }
+    
+    @RequestMapping("/deleteRec")      
+    public ModelAndView deleteRec(int cid){
+    	System.out.println("----------------deleteRec");
+    	customerService.delete(cid);
+        return showEasy();
+    }
+    
+    @RequestMapping("/why")
+    public ModelAndView why(){
+    	ModelAndView mav = new ModelAndView("a3");
+    	return mav;
+    }
+    
+    @RequestMapping("/save_user")
+    public ModelAndView save_user(){
+    	System.out.println("good!");
+    	List<CustomerVO> custList=customerService.getSearchList(new SearchBean());
+    	Map<String,Object> data = new HashMap<String,Object>();
+    	data.put("custList",custList);
+        ModelAndView mav = new ModelAndView("easy/a3",data);
+        return mav;
+    }
+    
+//    @RequestMapping("/update_user")      
+//    public ModelAndView update_user(CustomerVO customer){
+//    	System.out.println("update_user!");
+////    	System.out.println(request.getParameter("userId"));
+////    	System.out.println("===="+userName);
+////    	System.out.println("===="+map);
+////    	if(map!=null) {
+////    		System.out.println(map.get("userId"));
+////    	}
+//    	//CustomerVO customer,
+//    	System.out.println("---------"+customer);
+//    	if(customer!=null) {
+//    		System.out.println("---------"+customer.getUserId());
+//    	}
+//    	List<CustomerVO> custList=customerService.getSearchList(new SearchBean());
+//    	Map<String,Object> data = new HashMap<String,Object>(); 
+//    	data.put("custList",custList); 
+//        ModelAndView mav = new ModelAndView("easy/a1",data);
+//        return mav;
+//    }
+    
+    @RequestMapping("/update_user")      
+    public String update_user(){
+    	System.out.println("update_user2!");
+    	
+//    	System.out.println(request.getParameter("userId"));
+//    	System.out.println("===="+userName);
+//    	System.out.println("===="+map);
+//    	if(map!=null) {
+//    		System.out.println(map.get("userId"));
+//    	}
+    	//CustomerVO customer,
+//    	System.out.println("---------"+customer);
+//    	if(customer!=null) {
+//    		System.out.println("---------"+customer.getUserId());
+//    	}
+//    	List<CustomerVO> custList=customerService.getSearchList(new SearchBean());
+//    	Map<String,Object> data = new HashMap<String,Object>(); 
+//    	data.put("custList",custList); 
+//        ModelAndView mav = new ModelAndView("easy/a1",data);
+        return "easy/a1";
+    }
+    
+    @RequestMapping("/getList")      
+    public String getList(ModelMap model) {
+    	List<CustomerVO> custList2=customerService.getSearchList(new SearchBean());
+    	System.out.println(custList2.size());
+    	model.put("total", custList2.size());
+    	model.put("rows", custList2);
+    	return "easy/a2";
+    }
+    
+    
+//    @RequestMapping("update_user")      
+//    public ModelAndView update_user2(){
+//    	System.out.println("update_user2!");
+//    	List<CustomerVO> custList=customerService.getSearchList(new SearchBean());
+//    	Map<String,Object> data = new HashMap<String,Object>(); 
+//    	data.put("custList",custList); 
+//        ModelAndView mav = new ModelAndView("easy/a1",data);
+//        return mav;
+//    }
 } 

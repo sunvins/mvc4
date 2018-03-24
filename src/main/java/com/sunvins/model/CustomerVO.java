@@ -3,9 +3,8 @@ import java.util.Date;
 
 public class CustomerVO {
 	private int cid; // cid
-	private String userId; // 登录id
-	private String userName; // 用户名
-	private double pay; // 工资
+	private String userId; // 用户id
+	private String userName; // 呢称
 	private String userPass; // 密码
 	private Date birthDay; // 生日
 
@@ -31,14 +30,6 @@ public class CustomerVO {
 	
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-	
-	public double getPay() {
-		return pay;
-	}
-	
-	public void setPay(double pay) {
-		this.pay = pay;
 	}
 	
 	public String getUserPass() {

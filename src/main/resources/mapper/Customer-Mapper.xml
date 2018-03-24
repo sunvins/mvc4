@@ -6,7 +6,6 @@
 		<result column="cid" property="cid" jdbcType="INTEGER" />
 		<result column="user_id" property="userId" jdbcType="VARCHAR" />
 		<result column="user_name" property="userName" jdbcType="VARCHAR" />
-		<result column="pay" property="pay" jdbcType="DOUBLE" />
 		<result column="user_pass" property="userPass" jdbcType="VARCHAR" />
 		<result column="birth_day" property="birthDay" jdbcType="DATE" />
 	</resultMap>
@@ -24,6 +23,7 @@
 				and user_name=#{criteria1}
 			</if>
 		</where>
+		order by cid desc
 	</select>
 	
 	<!-- 新增记录 -->
@@ -31,12 +31,11 @@
 		<selectKey keyProperty="cid" resultType="int">  
             select LAST_INSERT_ID()
         </selectKey>
-		insert into s_customer (cid,user_id,user_name,pay,user_pass,birth_day) 
+		insert into s_customer (cid,user_id,user_name,user_pass,birth_day) 
 		values (
 		#{cid,jdbcType=INTEGER},
 		#{userId,jdbcType=VARCHAR},
 		#{userName,jdbcType=VARCHAR},
-		#{pay,jdbcType=DOUBLE},
 		#{userPass,jdbcType=VARCHAR},
 		#{birthDay,jdbcType=DATE})
 	</insert>
@@ -47,7 +46,6 @@
 		cid = #{cid},
 		user_id = #{userId},
 		user_name = #{userName},
-		pay = #{pay},
 		user_pass = #{userPass},
 		birth_day = #{birthDay}
 		where cid =#{cid}
